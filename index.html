@@ -34,11 +34,11 @@
         <h3>
 <a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h3>
 
-<p>The Roland SP-404SX Sampler is well-made, portable, and it has a slick user interface. Unfortunately its samples and patterns are stored in an undocumented proprietary format on an SD card.</p>
+<p>The Roland SP-404SX Sampler is well-made, portable, <em>and</em> it has a slick user interface. Unfortunately its samples and patterns are stored in an undocumented proprietary format on an SD card.</p>
 
 <p>Until now, the only way to collaborate with other producers and Digital Audio Workstation ("DAW") users was to "play" a pattern on the sampler and record its line-out to a single stereo track. This eliminates the ability to apply per-sample effects and make fine-grained changes to the arrangement.</p>
 
-<p>With the help of ModuLR's notes on SP-Forums, I've created a utility in Python called "ptn2midi" that translates a pattern on the SP-40SX's SD card to a MIDI (<code>.mid</code>) file and a SoundFont v1.2 (<code>.sf2</code>) file.</p>
+<p>With the help of ModuLR's notes on <a href="http://sp-forums.com/">SP-FORUMS</a>, I've created a utility in Python called "ptn2midi" that translates a pattern on the SP-40SX's SD card to a MIDI (<code>.mid</code>) file and a SoundFont v1.2 (<code>.sf2</code>) file.</p>
 
 <p>The MIDI file includes the note pitches, durations, and timing data. The SoundFont file contains the associated samples, trimmed, just as they were on the sampler itself.</p>
 
