@@ -46,15 +46,17 @@
 <a name="how-to-use-the-utility" class="anchor" href="#how-to-use-the-utility"><span class="octicon octicon-link"></span></a>How to use the utility</h3>
 
 <ol>
-<li>Create a pattern on the SP-404SX</li>
+<li>Create a pattern on the SP-404SX. Store it, for example, on pad A1</li>
 <li>Download and extract the ptn2midi repository from <a href="https://github.com/TylerOderkirk/ptn2midi/archive/master.zip">https://github.com/TylerOderkirk/ptn2midi/archive/master.zip</a>
 </li>
-<li>Insert the sampler's SD card into your computer and run the utility: <code>./ptn2midi.py /media/tz/SP-404SX/ J1 95</code> where the first argument is the path (with trailing delimiter) to the SD card, the second is the name of the pattern, and the third is the tempo</li>
+<li>Install <a href="http://www.emergentmusics.org/midiutil">the MIDIUtil Python library</a>
+</li>
+<li>Insert the sampler's SD card into your computer and run the utility: <code>./ptn2midi.py /media/tz/SP-404SX/ A1 95</code> where the first argument is the path (with trailing delimiter) to the SD card, the second is the name of the pattern, and the third is the tempo</li>
 <li>Load the resulting files e.g. <code>PTN_A1.mid</code> and <code>PTN_A1.sf2</code> into your DAW of choice</li>
 </ol><h3>
 <a name="demonstration" class="anchor" href="#demonstration"><span class="octicon octicon-link"></span></a>Demonstration</h3>
 
-<p>I loaded the factory default samples and created a pattern at 95 BPM on pad A1. <a href="https://soundcloud.com/dj_toadstool/ptn-f1-roland-line-out-recorded">Here's a recording from the sampler's line-out</a>. Pay no mind to the clipping!</p>
+<p>I loaded the factory default samples and created a pattern at 95 BPM on pad F1. <a href="https://soundcloud.com/dj_toadstool/ptn-f1-roland-line-out-recorded">Here's a recording from the sampler's line-out</a>. Pay no mind to the clipping!</p>
 
 <p><img src="https://raw.githubusercontent.com/TylerOderkirk/ptn2midi/gh-pages/images/playing_pattern_on_sp-404sx_imgflip_a0fwj.gif" alt="My sampler playing the pattern"></p>
 
@@ -94,7 +96,7 @@ with the "Mark" button and "Start/End" feature on the sampler</li>
 </ol><h3>
 <a name="thankscredits" class="anchor" href="#thankscredits"><span class="octicon octicon-link"></span></a>Thanks/Credits</h3>
 
-<p><strong>Chris</strong>, for sharing his Ableton knowledge and for dealing with <em>a lot</em> of broken SoundFont files. <strong>Ben Collver</strong> for placing his <a href="http://code.terrorpin.net/pysf/index">excellent Python SoundFont library</a>, in the Public Domain. <strong>EnjoyPA</strong> <a href="https://www.freesound.org/people/EnjoyPA/">on FreeSound.org</a> for the WAVs I used in the "template" SoundFont. </p>
+<p><strong>Chris</strong>, for sharing his Ableton knowledge and for dealing with <em>a lot</em> of broken SoundFont files. <strong>Ben Collver</strong> for placing his <a href="http://code.terrorpin.net/pysf/index">excellent Python SoundFont library, pysf</a>, in the Public Domain. <strong>Mark Conway Wirt</strong> for his MIDIUtil Python library. <strong>EnjoyPA</strong> <a href="https://www.freesound.org/people/EnjoyPA/">on FreeSound.org</a> for the WAVs I used in the "template" SoundFont.</p>
       </section>
     </div>
 
