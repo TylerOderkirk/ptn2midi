@@ -36,7 +36,7 @@
 
 <p>The Roland SP-404SX Sampler is well-made, portable, and it has a slick user interface. Unfortunately its samples and patterns are stored in an undocumented proprietary format on an SD card.</p>
 
-<p>Until now, the only way to collaborate with other producers and DAW users was to "play" a pattern on the sampler and record its line-out to a single stereo track. This eliminates the ability to apply per-sample effects and make fine-grained changes to the arrangement.</p>
+<p>Until now, the only way to collaborate with other producers and Digital Audio Workstation ("DAW") users was to "play" a pattern on the sampler and record its line-out to a single stereo track. This eliminates the ability to apply per-sample effects and make fine-grained changes to the arrangement.</p>
 
 <p>With the help of ModuLR's notes on SP-Forums, I've created a utility in Python called "ptn2midi" that translates a pattern on the SP-40SX's SD card to a MIDI (<code>.mid</code>) file and a SoundFont v1.2 (<code>.sf2</code>) file.</p>
 
@@ -54,9 +54,13 @@
 </ol><h3>
 <a name="demonstration" class="anchor" href="#demonstration"><span class="octicon octicon-link"></span></a>Demonstration</h3>
 
-<p>I loaded the factory default samples and created a pattern at 95BPM on pad A1. Here's a recording from the sampler's line-out: QQQQ</p>
+<p>I loaded the factory default samples and created a pattern at 95 BPM on pad A1. <a href="https://soundcloud.com/dj_toadstool/ptn-f1-roland-line-out-recorded">Here's a recording from the sampler's line-out</a>. Pay no mind to the clipping!</p>
 
-<p>Here's what I got when I created a new track in Ableton Live 9, imported the <code>.sf2</code> and <code>.mid</code> files from the utility, and did "Export audio/video": QQQQ</p>
+<p><img src="https://raw.githubusercontent.com/TylerOderkirk/ptn2midi/gh-pages/images/playing_pattern_on_sp-404sx_imgflip_a0fwj.gif" alt="My sampler playing the pattern"></p>
+
+<p>And... <a href="https://soundcloud.com/dj_toadstool/ptn-f1-ableton-export">here's what I got</a> when I created a new track in Ableton Live 9, imported the <code>.sf2</code> and <code>.mid</code> files from the utility, and did "Export audio/video".</p>
+
+<p><img src="https://raw.githubusercontent.com/TylerOderkirk/ptn2midi/gh-pages/images/ableton_midi_note_editor.gif" alt="Ableton's MIDI note editor view"></p>
 
 <h3>
 <a name="how-it-works" class="anchor" href="#how-it-works"><span class="octicon octicon-link"></span></a>How it works</h3>
@@ -71,7 +75,7 @@ with the "Mark" button and "Start/End" feature on the sampler</li>
 <code>create_midi_file()</code> - The utility assigns a unique pitch (starting at C1[36]) to each sample used by the pattern, truncating each and converting it to a single channel (see "Future Improvements"), overwriting the WAVs of an included "template" SoundFont</li>
 <li>
 <code>create_soundfont()</code> - The utility assembles the samples and associated pitches into a SoundFont v2.1 (.sf2) file using pysf and a SoundFont descriptor named template.xml</li>
-</ol><p>QQQQ - arch_diagram</p>
+</ol><p><img src="https://raw.githubusercontent.com/TylerOderkirk/ptn2midi/gh-pages/images/sys_arch_print_preview.png" alt="System architecture diagram"></p>
 
 <h3>
 <a name="future-improvements" class="anchor" href="#future-improvements"><span class="octicon octicon-link"></span></a>Future Improvements:</h3>
