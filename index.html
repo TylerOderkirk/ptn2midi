@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="ptn2midi : Export your Roland SP-404SX patterns and samples to MIDI and SoundFont files" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>ptn2midi</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/TylerOderkirk/ptn2midi">View on GitHub</a>
+
+          <h1 id="project_title">ptn2midi</h1>
+          <h2 id="project_tagline">Export your Roland SP-404SX patterns and samples to MIDI and SoundFont files</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/TylerOderkirk/ptn2midi/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/TylerOderkirk/ptn2midi/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h3>
+
+<p>The Roland SP-404SX Sampler is well-made, portable, and it has a slick user interface. Unfortunately its samples and patterns are stored in an undocumented proprietary format on an SD card.</p>
+
+<p>Until now, the only way to collaborate with other producers and DAW users was to "play" a pattern on the sampler and record its line-out to a single stereo track. This eliminates the ability to apply per-sample effects and make fine-grained changes to the arrangement.</p>
+
+<p>With the help of ModuLR's notes on SP-Forums, I've created a utility in Python called ptn2midi that translates a pattern on the SP-40SX's SD card to a MIDI (.mid) file and a SoundFont (.sf2) file.</p>
+
+<p>The MIDI file includes the note pitches, durations, and timing data. The SoundFont file contains the associated samples, trimmed, just as they were on the sampler itself.</p>
+
+<h3>
+<a name="how-to-use-the-utility" class="anchor" href="#how-to-use-the-utility"><span class="octicon octicon-link"></span></a>How to use the utility</h3>
+
+<ol>
+<li>Create a pattern on the SP-404SX</li>
+<li>Download and extract the ptn2midi repository from <a href="https://github.com/TylerOderkirk/ptn2midi/archive/master.zip">https://github.com/TylerOderkirk/ptn2midi/archive/master.zip</a>
+</li>
+<li>Insert the sampler's SD card into your computer and run the utility: <code>./ptn2midi.py /media/tz/SP-404SX/ J1 95</code> where the first argument is the path (with trailing delimiter) to the SD card, the second is the name of the pattern, and the third is the tempo</li>
+<li>Load the resulting files e.g. <code>PTN_A1.mid</code> and <code>PTN_A1.sf2</code> into your DAW of choice</li>
+</ol><h3>
+<a name="demonstration" class="anchor" href="#demonstration"><span class="octicon octicon-link"></span></a>Demonstration</h3>
+
+<p>I loaded the factory default samples and created a pattern at 95BPM on pad A1. Here's a recording from the sampler's line-out: QQQQ</p>
+
+<p>Here's what I got when I created a new track in Ableton Live 9, imported the <code>.sf2</code> and <code>.mid</code> files from the utility, and did "Export audio/video": QQQQ</p>
+
+<h3>
+<a name="how-it-works" class="anchor" href="#how-it-works"><span class="octicon octicon-link"></span></a>How it works</h3>
+
+<ol>
+<li>
+<code>get_pad_info()</code> - The utility parses PAD_INFO.BIN from the SD card to determine the "start" and "end" points for every sample on the SD card. These points have been set
+with the "Mark" button and "Start/End" feature on the sampler</li>
+<li>
+<code>get_pattern()</code> - The utility parses the .BIN file corresponding to the pattern to determine when, and for how long, each "note" in the pattern should be played</li>
+<li>
+<code>create_midi_file()</code> - The utility assigns a unique pitch (starting at C1[36]) to each sample used by the pattern, truncating each and converting it to a single channel (see "Future Improvements"), overwriting the WAVs of an included "template" SoundFont</li>
+<li>
+<code>create_soundfont()</code> - The utility assembles the samples and associated pitches into a SoundFont v2.1 (.sf2) file using pysf and a SoundFont descriptor named template.xml</li>
+</ol><p>QQQQ - arch_diagram</p>
+
+<h3>
+<a name="future-improvements" class="anchor" href="#future-improvements"><span class="octicon octicon-link"></span></a>Future Improvements:</h3>
+
+<ol>
+<li>Support more than 12 samples per pattern. Trivial - expand Template .xml</li>
+<li>Support stereo samples. Trivial - assign two samples (left and right) per SoundFont pitch/note</li>
+<li>Support AIF samples. Trivial - convert to PCM WAV intitially</li>
+<li>Support "looped" samples. Use <code>&lt;loop&gt;</code> entries in <code>&lt;wavetable&gt;</code> nodes in <code>template.xml</code>? <code>create_looped_wav()</code>?</li>
+<li>Support platforms other than Ubuntu Linux Saucy (13.10). Temporary file locations</li>
+<li>Implement robust command-line argument parsing</li>
+<li>Support other samplers in the Roland SP family</li>
+<li>Support DAWs other than Ableton Live 9</li>
+<li>Support creation of "superset" SoundFonts comprised of samples from more than 1 patterns</li>
+<li>Replicate effects such as "lo-fi", "reverse", etc on the host machine</li>
+</ol><h3>
+<a name="thankscredits" class="anchor" href="#thankscredits"><span class="octicon octicon-link"></span></a>Thanks/Credits</h3>
+
+<p><strong>Chris</strong>, for sharing his Ableton knowledge and for dealing with <em>a lot</em> of broken SoundFont files. <strong>Ben Collver</strong> for placing his <a href="http://code.terrorpin.net/pysf/index">excellent Python SoundFont library</a>, in the Public Domain. <strong>EnjoyPA</strong> <a href="https://www.freesound.org/people/EnjoyPA/">on FreeSound.org</a> for the WAVs I used in the "template" SoundFont. </p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">ptn2midi maintained by <a href="https://github.com/TylerOderkirk">TylerOderkirk</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-50714982-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
